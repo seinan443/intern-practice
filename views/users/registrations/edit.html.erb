@@ -1,0 +1,78 @@
+<body>
+    <header>
+      <h1>Share Netflix</h1>
+      <div class="header-list">
+      <ul>
+        <li><%= link_to "ホーム", movie_index_path %></li>
+        <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
+        <li><a href="/users/<%= current_user.id %>">マイページ</a></li>
+      </ul>
+      </div>
+    </header>
+  </body>
+
+
+
+
+<h2>アカウント情報を変更する</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+
+  <div class="field">
+    <%= f.label :name %> <br />
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :メールアドレス %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :プロフィール %> <br />
+    <%= f.text_area :profile, size: "100x10" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :プロフィール画像 %> <br />
+    <%= f.file_field :image %>
+  </div>
+
+
+  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :パスワード変更 %> <i>(変更しない場合、空欄)</i><br />
+    <%= f.password_field :password, autocomplete: "new-password" %>
+    <% if @minimum_password_length %>
+      <br />
+      <em><%= @minimum_password_length %> 文字以上</em>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= f.label :変更後パスワードをもう一度入力 %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :現在のパスワードを入力 %> <i>(アカウント情報を変更する場合、現在のパスワードを入力)</i><br />
+    <%= f.password_field :current_password, autocomplete: "current-password" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "変更する" %>
+  </div>
+<% end %>
+
+<section id="first-block">
+<h3>アカウント削除</h3>
+<p>アカウントを削除してもよろしいですか? <%= button_to "アカウント削除", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+<a href="/users/<%= current_user.id %>">戻る</a>
+</section>
+
+<%= stylesheet_link_tag 'user_edit', :media => "all" %>
+

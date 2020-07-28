@@ -1,0 +1,53 @@
+<body>
+    <header>
+      <h1>Share Netflix</h1>
+      <div class="header-list">
+      <ul>
+        <li><%= link_to "ホーム", movie_index_path %></li>
+        <li><%= link_to '投稿する', :controller => "movie", :action => "new" %></li>
+        <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
+        <li><a href="/users/<%= current_user.id %>">マイページ</a></li>
+      </ul>
+      </div>
+    </header>
+  </body>
+
+  <section id="first-block">
+<h2>マイページ</h2>
+<h3>~マイリストを確認しよう~</h3>
+</section>
+<div class="main_box">
+<p>名前 : <%= @user.name %></p>
+<p>メールアドレス : <%= @user.email %></p>
+<p>プロフィール : <%= @user.profile %></p>
+<%= image_tag @user.image_url %>
+<%= link_to "プロフィール編集", edit_user_registration_path %>
+</div>
+
+<section id="secand-block">
+<h4>マイリスト</h4>
+<div class="movie_box">
+  <% @movies.each do |m| %>
+    <div class="movie">
+     <div class="main-box">
+      <div class="rigth-box">
+       <%= image_tag m.image_url %>
+      </div>
+      <div class="left-box">
+       <div class="title-box">
+         <%= m.name %>
+       </div>
+        <p class="info-text">
+        <%= m.genre %>
+        <br>
+        投稿者:<%= m.user.name %>
+        <br>
+        </p>
+      </div>
+     </div>
+    </div>
+  <% end %>
+</div>
+</section>
+
+<%= stylesheet_link_tag 'users', :media => "all" %>
